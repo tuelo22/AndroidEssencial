@@ -1,6 +1,7 @@
 package br.com.livroandroid.carros.activity;
 
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -59,13 +60,19 @@ public class BaseActivity extends livroandroid.lib.activity.BaseActivity {
                 toast("Clicou em carros");
                 break;
             case R.id.nav_item_carros_classicos:
-                toast("Clicou em carros clássicos");
+                Intent intent =  new Intent(getContext(), CarrosActivity.class);
+                intent.putExtra("tipo", R.string.classicos);
+                startActivity(intent);
                 break;
             case R.id.nav_item_carros_esportivos:
-                toast("Cliclou carros esportivos");
+                intent =  new Intent(getContext(), CarrosActivity.class);
+                intent.putExtra("tipo", R.string.esportivos);
+                startActivity(intent);
                 break;
             case R.id.nav_item_carros_luxo:
-                toast("Cliclou carros de luxo");
+                intent =  new Intent(getContext(), CarrosActivity.class);
+                intent.putExtra("tipo", R.string.luxo);
+                startActivity(intent);
                 break;
             case R.id.nav_item_site_livro:
                 toast("Clicou em site do livro");
