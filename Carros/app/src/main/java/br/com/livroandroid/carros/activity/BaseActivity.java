@@ -75,7 +75,7 @@ public class BaseActivity extends livroandroid.lib.activity.BaseActivity {
                 startActivity(intent);
                 break;
             case R.id.nav_item_site_livro:
-                toast("Clicou em site do livro");
+                startActivity(new Intent(getContext(), SiteLivroActivity.class));
                 break;
             case R.id.nav_item_settings:
                 toast("Clicou em configurações");
