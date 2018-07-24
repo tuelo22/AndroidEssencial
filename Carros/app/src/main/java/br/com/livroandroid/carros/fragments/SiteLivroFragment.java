@@ -6,14 +6,18 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
 
 import br.com.livroandroid.carros.R;
+import br.com.livroandroid.carros.fragments.dialog.AboutDialog;
 
 public class SiteLivroFragment extends Fragment {
     private static final String URL_SOBRE="http://www.livroandroid.com.br/sobre.htm";
@@ -28,6 +32,9 @@ public class SiteLivroFragment extends Fragment {
         progress = view.findViewById(R.id.progress);
         setWebViewClient(webView);
         webView.loadUrl(URL_SOBRE);
+
+        WebSettings settings = webView.getSettings();
+        settings.setJavaScriptEnabled(true) ;
 
         swipeLayout = view.findViewById(R.id.swipeToRefresh);
         swipeLayout.setOnRefreshListener(OnRefreshListener());
@@ -56,6 +63,18 @@ public class SiteLivroFragment extends Fragment {
                 super.onPageFinished(webview, url);
                 progress.setVisibility(View.INVISIBLE);
                 swipeLayout.setRefreshing(false);
+            }
+
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                Log.d("livroandroid", "webview url: " + url);
+                if(url != null && url.endsWith("sobre.htm")){
+                   AboutDialog.showAbout(getFragmentManager());
+
+                    return true;
+                }
+
+                return super.shouldOverrideUrlLoading(view, url);
             }
         });
     }
